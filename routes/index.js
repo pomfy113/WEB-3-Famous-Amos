@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-let pets = require('../json/pets')
+const pets = require('../json/pets')
+const Pet = require('../db/models/').Pet
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('pets-index', { pets: pets });
+    Pet.findAll().then(pets => {
+        res.render('pets-index', { pets });
+    })
 });
 
 module.exports = router;

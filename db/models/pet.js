@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     picUrl: DataTypes.STRING,
     picUrlSq: DataTypes.STRING,
     description: DataTypes.TEXT
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+
+  Pet.associate = function(models){
+      Pet.hasMany(models.Comment)
+  }
+  // Change later: CLASS.associate = function(models) {
+  // CLASS.belongsTo(models.whateveritbelongsto)}
   return Pet;
 };

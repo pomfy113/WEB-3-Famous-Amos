@@ -3,8 +3,8 @@ const router = express.Router();
 
 let petJSON = require('../json/pets');
 let comments = require('../json/comments');
-const Pet = require('../db/models/').Pet;
 const model = require('../db/models/');
+const Pet = require('../db/models/').Pet;
 
 // I'll deal with repopulation later
 // router.get('/populate', (req, res) => {
@@ -45,12 +45,11 @@ router.get('/new', (req, res) => {
 // SHOW
 router.get('/:index', (req, res) => {
   Pet.findById(req.params.index, {
-      include: [{
+      include: {
           model: model.Comment
-      }]
+      }
   }).then(pet => {
-      console.log(pet)
-      res.render('pets-show', { pet, comments: comments });
+      res.render('pets-show', { pet });
   });
 });
 

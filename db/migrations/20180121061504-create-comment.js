@@ -8,8 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      body: {
-        type: Sequelize.STRING
+      content: {
+        type: Sequelize.STRING,
+        validate: {
+            len: [1,240]
+        }
       },
       createdAt: {
         allowNull: false,

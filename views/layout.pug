@@ -15,7 +15,9 @@ html
         ul.navbar-nav
           li.nav-item
             a.nav-link(href='/pets/new') New Pet
-
+    if messages.info
+        div.alert.alert-info
+            span=messages.info
     .container
       block content
 

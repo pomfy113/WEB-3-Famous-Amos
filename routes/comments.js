@@ -9,28 +9,37 @@ router.post('/', (req, res) => {
     model.Comment.create({
         content: req.body.content,
         PetId: req.params.petId
+    }).then(() => {
+        req.flash('info', 'Comment posted');
+        res.redirect(`/pets/${req.params.petId}`);
+    }).catch((err) => {
+        req.flash('info', 'Something went wrong!');
+        res.redirect(`/pets/${req.params.petId}`);
     });
-    res.redirect(`/pets/${req.params.petId}`);
 });
 
 // DESTROY
 router.delete('/:index', (req, res) => {
-    console.log(req.params.index);
     model.Comment.destroy({
         where: {
             id: req.params.index
         }
+    }).then(() => {
+        req.flash('info', 'Comment deleted');
+        res.redirect(`/pets/${req.params.petId}`);
+    }).catch((err) => {
+        req.flash('info', 'Something went wrong!');
+        res.redirect(`/pets/${req.params.petId}`);
     });
 
-    res.redirect(`/pets/${req.params.petId}`);
 });
 
 // Comment populate
 router.get('/comment-populate', (req, res) => {
-    let pet = model.Pet;
-    let comment = model.Comment;
+    const Pet = model.Pet;
+    const Comment = model.Comment;
 
-    comment.sync().then(function(){
+    Comment.sync().then(function(){
         // Just add ALL of the comments, man.
         commentJSON.forEach(function(content){
             content.PetId = req.params.petId;

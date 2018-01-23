@@ -5,14 +5,14 @@ module.exports = (sequelize, DataTypes) => {
     species: DataTypes.STRING,
     birthday: DataTypes.DATE,
     favoriteFood: DataTypes.STRING,
-    picUrl: DataTypes.STRING,
-    picUrlSq: DataTypes.STRING,
+    picUrl: {type: DataTypes.STRING, validate: { isUrl: true } },
+    picUrlSq: {type: DataTypes.STRING, validate: { isUrl: true } },
     description: DataTypes.TEXT
   });
 
   Pet.associate = function(models){
-      Pet.hasMany(models.Comment)
-  }
+      Pet.hasMany(models.Comment);
+  };
   // Change later: CLASS.associate = function(models) {
   // CLASS.belongsTo(models.whateveritbelongsto)}
   return Pet;

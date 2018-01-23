@@ -30,6 +30,7 @@ const Pet = require('../db/models/').Pet;
 //     res.redirect('/');
 // });
 
+// TODO: Change index to petId
 
 // INDEX
 router.get('/', (req, res) => {

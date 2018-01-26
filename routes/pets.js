@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-let petJSON = require('../json/pets');
-let comments = require('../json/comments');
+// let petJSON = require('../json/pets');
+// let comments = require('../json/comments');
 const model = require('../db/models/');
-const Pet = require('../db/models/').Pet;
 
 // I'll deal with repopulation later
 // router.get('/populate', (req, res) => {
@@ -30,11 +29,11 @@ const Pet = require('../db/models/').Pet;
 //     res.redirect('/');
 // });
 
-// TODO: Change index to petId
+// TODO: Change petId to petId
 
-// INDEX
+// petId
 router.get('/', (req, res) => {
-    Pet.findAll().then(pets => {res.send(pets);});
+    model.Pet.findAll().then(pets => {res.send(pets);});
 });
 
 // NEW
@@ -44,8 +43,8 @@ router.get('/new', (req, res) => {
 
 
 // SHOW
-router.get('/:index', (req, res) => {
-  Pet.findById(req.params.index, {
+router.get('/:petId', (req, res) => {
+  model.Pet.findById(req.params.petId, {
       include: {
           model: model.Comment
       }
@@ -56,23 +55,23 @@ router.get('/:index', (req, res) => {
 
 // CREATE
 router.post('/', (req, res) => {
-    Pet.create(req.body);
+    model.Pet.create(req.body);
     res.redirect('/');
 });
 
 // EDIT
-router.get('/:index/edit', (req, res) => {
-    Pet.findById(req.params.index).then(pet => {
+router.get('/:petId/edit', (req, res) => {
+    model.Pet.findById(req.params.petId).then(pet => {
         res.render('pets-edit', { pet });
     });
 });
 
 // UPDATE
-router.put('/:index', (req, res) => {
-    Pet.findById(req.params.index).then(pet => {
+router.put('/:petId', (req, res) => {
+    model.Pet.findById(req.params.petId).then(pet => {
         return pet.update(req.body);
     }).then(() => {
-        res.redirect(`/pets/${req.params.index}`);
+        res.redirect(`/pets/${req.params.petId}`);
     }).catch((err) => {
         res.send(err);
     });
@@ -80,7 +79,7 @@ router.put('/:index', (req, res) => {
 
 
 // DESTROY
-router.delete('/:index', (req, res) => {
+router.delete('/:petId', (req, res) => {
   res.redirect('/');
 });
 

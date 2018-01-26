@@ -15,6 +15,9 @@ html
         ul.navbar-nav
           li.nav-item
             a.nav-link(href='/pets/new') New Pet
+        form(action="/search" method="GET")  
+            input(name="name")
+
     if messages.info
         div.alert.alert-info
             span=messages.info

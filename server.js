@@ -18,8 +18,10 @@ const purchases = require('./routes/purchases');
 const flash = require('express-flash');
 const session = require('express-session');
 
-
 const app = express();
+
+const paginate = require('express-paginate');
+app.use(paginate.middleware(4, 50));
 
 
 // Flash

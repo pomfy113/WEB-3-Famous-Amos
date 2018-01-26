@@ -19,6 +19,7 @@ router.post('/', (req, res) => {
 });
 
 // DESTROY
+// TODO - Look into more individual deletes
 router.delete('/:index', (req, res) => {
     model.Comment.destroy({
         where: {

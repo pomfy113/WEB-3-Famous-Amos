@@ -2,6 +2,11 @@ extends layout
 
 block content
   .row
+    div.btn-group.my-4(role="group")
+        - for (var x = 1; x < pages+1; x++)
+            a.btn.btn-primary(href="/page/"+x)= x
+
+  .row
     each pet in pets
       .col-sm-4.justify-content-center
         .card

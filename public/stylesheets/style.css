@@ -22,3 +22,8 @@
     transform: translate(-50%);
     transition: 500ms;
 }
+
+.card-img-top{
+    height: 208px;
+    width: auto;
+}

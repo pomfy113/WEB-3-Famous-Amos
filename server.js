@@ -58,21 +58,21 @@ app.use('/pets/:petId/comments', comments);
 app.use(purchases);
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  let err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-app.use(function(err, req, res, next) {
-  if(err.status == 404) {
-  //do logging and user-friendly error message display
-    res.redirect('/404.html');
-  } else if (err.status == 500) {
-    res.redirect('/500.html');
-  }
-});
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   let err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
+//
+// app.use(function(err, req, res, next) {
+//   if(err.status == 404) {
+//   //do logging and user-friendly error message display
+//     res.redirect('/404.html');
+//   } else if (err.status == 500) {
+//     res.redirect('/500.html');
+//   }
+// });
 
 sequelize
   .authenticate()

@@ -46,8 +46,11 @@ router.get('/new', (req, res) => {
 router.get('/:petId', (req, res) => {
   model.Pet.findById(req.params.petId, {
       include: {
-          model: model.Comment
-      }
+          model: model.Comment,
+      },
+      order: [
+          [ model.Comment, 'id', 'DESC']
+      ]
   }).then(pet => {
       res.render('pets-show', { pet });
   });

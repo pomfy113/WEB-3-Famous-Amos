@@ -4,7 +4,7 @@ block content
   .row
     div.btn-group.my-4(role="group")
         - for (var x = 1; x < pages+1; x++)
-            a.btn.btn-primary(href="/page/"+x)= x
+            a.btn.btn-primary(href="/page/"+x name="page")= x
 
   .row
     each pet in pets

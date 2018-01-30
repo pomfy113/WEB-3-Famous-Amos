@@ -11,5 +11,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+  // TODO - Neater 'associate', OOP style
   return User;
 };

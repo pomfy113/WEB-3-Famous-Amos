@@ -10,26 +10,25 @@ router.post('/', (req, res) => {
         content: req.body.content,
         PetId: req.params.petId
     }).then(() => {
-        req.flash('info', 'Comment posted');
+        req.flash('success', 'Comment posted');
         res.redirect(`/pets/${req.params.petId}`);
     }).catch((err) => {
-        req.flash('info', 'Something went wrong!');
+        req.flash('caution', 'Something went wrong!');
         res.redirect(`/pets/${req.params.petId}`);
     });
 });
 
 // DESTROY
-// TODO - Look into more individual deletes
 router.delete('/:index', (req, res) => {
     model.Comment.destroy({
         where: {
             id: req.params.index
         }
     }).then(() => {
-        req.flash('info', 'Comment deleted');
+        req.flash('success', 'Comment deleted');
         res.redirect(`/pets/${req.params.petId}`);
     }).catch((err) => {
-        req.flash('info', 'Something went wrong!');
+        req.flash('caution', 'Something went wrong!');
         res.redirect(`/pets/${req.params.petId}`);
     });
 

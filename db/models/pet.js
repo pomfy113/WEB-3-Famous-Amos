@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   Pet.associate = function(models){
       Pet.hasMany(models.Comment);
   };
+
   // Change later: CLASS.associate = function(models) {
   // CLASS.belongsTo(models.whateveritbelongsto)}
   return Pet;

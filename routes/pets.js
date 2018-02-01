@@ -83,7 +83,14 @@ router.put('/:petId', (req, res) => {
 
 // DESTROY
 router.delete('/:petId', (req, res) => {
-  res.redirect('/');
+  model.Pet.findById(req.params.petId).then(pet => {
+      console.log(pet)
+      return pet.destroy()
+  }).then(() => {
+      res.redirect('/');
+  }).catch((err) => {
+      res.send(err);
+  })
 });
 
 module.exports = router;

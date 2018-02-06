@@ -1,5 +1,5 @@
 if (!process.env.PORT) {
-  require('dotenv').config()
+  require('dotenv').config();
 }
 
 const express = require('express');
@@ -42,7 +42,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // override with POST having ?_method=DELETE or ?_method=PUT
-app.use(methodOverride('_method'))
+app.use(methodOverride('_method'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -56,6 +56,10 @@ app.use('/', index);
 app.use('/pets', pets);
 app.use('/pets/:petId/comments', comments);
 app.use(purchases);
+
+// AWS?
+const Upload = require('s3-uploader');
+
 
 
 // // catch 404 and forward to error handler

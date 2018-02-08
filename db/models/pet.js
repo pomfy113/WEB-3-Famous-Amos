@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     birthday: DataTypes.DATE,
     favoriteFood: DataTypes.STRING,
     picUrl: {type: DataTypes.STRING, validate: { isUrl: true } },
+    picSquare: {type: DataTypes.STRING, validate: { isUrl: true } },
+    picMobile: {type: DataTypes.STRING, validate: { isUrl: true } },
+    picThumb: {type: DataTypes.STRING, validate: { isUrl: true } },
     picUrlSq: {type: DataTypes.STRING, validate: { isUrl: true } },
     description: DataTypes.TEXT
   });
@@ -13,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Pet.associate = function(models){
       Pet.hasMany(models.Comment);
   };
+
   // Change later: CLASS.associate = function(models) {
   // CLASS.belongsTo(models.whateveritbelongsto)}
   return Pet;

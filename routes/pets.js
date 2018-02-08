@@ -6,7 +6,23 @@ const router = express.Router();
 const model = require('../db/models/');
 
 const multer  = require('multer')
-const upload = multer({ dest: '../uploads/' })
+// const upload = multer({ dest: 'uploads/' })
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+      // TODO Look into edge cases
+      let extArray = file.mimetype.split("/");
+      let ext = extArray[extArray.length - 1];
+      cb(null, Date.now() + "." + ext);
+  }
+});
+
+const upload = multer({ storage });
+
+
 const Upload = require('s3-uploader');
 
 let client = new Upload(process.env.S3_BUCKET, {
@@ -68,33 +84,33 @@ router.get('/:petId', (req, res) => {
 // CREATE
 router.post('/', upload.single('picUrl'), (req, res) => {
     let newPet = req.body;
+    let imageArray = ['picThumb', 'picUrl', 'picSquare', 'picMobile'];
 
     if (req.file) {
       client.upload(req.file.path, {}, function (err, versions, meta) {
         if (err) {
-            console.log(err)
-            return res.status(400).send({ err: err }); }
+            console.log(err);
+            return res.status(400).send({ err: err });
+        }
 
-        versions.forEach(function(image) {
-          console.log(image.width, image.height, image.url);
-          // 1024 760 https://my-bucket.s3.amazonaws.com/path/110ec58a-a0f2-4ac4-8393-c866d813b8d1.jpg
+        for(let i = 0; i < imageArray.length; i++){
+            newPet[imageArray[i]] = versions[i].url;
+        }
 
-        //   var urlArray = image.url.split('-');
-        //   urlArray.pop();
-        //   var url = urlArray.join('-');
-        //   newPet.picUrl = url;
-        //   newPet.save();
+        model.Pet.create(newPet).then(() => {
+            req.flash('success', 'Pet created');
+            res.redirect('/');
         });
+    });
 
-        res.send({ newPet });
-      });
-    } else {
-      res.send({ newPet });
+    }
+    else{
+        model.Pet.create(newPet).then(() => {
+            req.flash('success', 'Pet created, but images cannot be uploaded');
+            res.redirect('/');
+        });
     }
 
-    // model.Pet.create(newPet);
-
-    // res.redirect('/');
 });
 
 // EDIT

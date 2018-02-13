@@ -34,10 +34,12 @@ require('dotenv').config();
 
 // DB set-up
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('famous-amos' || process.env.DATABASE_URL,
-'fcruz', process.env.SQLPASS, {
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, 'fcruz', process.env.SQLPASS, {
     dialect: 'postgres'
 });
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

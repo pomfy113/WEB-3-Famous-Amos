@@ -35,17 +35,17 @@ require('dotenv').config();
 // DB set-up
 const Sequelize = require('sequelize');
 
-// const sequelize = new Sequelize(process.env.DATABASE_URL, 'fcruz', process.env.SQLPASS, {
-//     dialect: 'postgres'
-// });
-
-sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
-    protocol: 'postgres',
-    dialectOptions: {
-        ssl: true
-    }
+const sequelize = new Sequelize(process.env.DATABASE_URL, process.env.USER, process.env.SQLPASS, {
+    dialect: 'postgres'
 });
+
+// sequelize = new Sequelize(process.env.DATABASE_URL, {
+//     dialect: 'postgres',
+//     protocol: 'postgres',
+//     dialectOptions: {
+//         ssl: true
+//     }
+// });
 
 
 

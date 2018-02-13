@@ -18,7 +18,18 @@ const purchases = require('./routes/purchases');
 const flash = require('express-flash');
 const session = require('express-session');
 
+
 const app = express();
+// const server = require('http').Server(app);
+// const io = require('socket.io')(server);
+//
+// io.on('connection', function (socket) {
+//   socket.emit('news', { hello: 'world' });
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+// });
+
 
 const paginate = require('express-paginate');
 app.use(paginate.middleware(4, 50));
@@ -56,6 +67,7 @@ app.use('/', index);
 app.use('/pets', pets);
 app.use('/pets/:petId/comments', comments);
 app.use(purchases);
+
 
 // AWS?
 const Upload = require('s3-uploader');

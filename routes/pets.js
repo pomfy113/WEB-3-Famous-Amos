@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-// let petJSON = require('../json/pets');
-// let comments = require('../json/comments');
 const model = require('../db/models/');
 
-const multer  = require('multer')
-// const upload = multer({ dest: 'uploads/' })
-
+const multer  = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -19,10 +15,7 @@ const storage = multer.diskStorage({
       cb(null, Date.now() + "." + ext);
   }
 });
-
 const upload = multer({ storage });
-
-
 const Upload = require('s3-uploader');
 
 let client = new Upload(process.env.S3_BUCKET, {

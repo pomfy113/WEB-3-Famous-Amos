@@ -6,6 +6,7 @@ const model = require('../db/models/');
 
 const emailService = require('./email');
 
+
 /* GET home page. */
 // TODO - Flash Messages on error messages
 router.get('/', (req, res) => {

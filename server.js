@@ -34,7 +34,8 @@ require('dotenv').config();
 
 // DB set-up
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('famous-amos', 'fcruz', process.env.SQLPASS, {
+const sequelize = new Sequelize('famous-amos' || process.env.DATABASE_URL,
+'fcruz', process.env.SQLPASS, {
     dialect: 'postgres'
 });
 

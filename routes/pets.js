@@ -136,29 +136,4 @@ router.delete('/:petId', (req, res) => {
   });
 });
 
-// I'll deal with repopulation later
-// router.get('/populate', (req, res) => {
-//     const Testing =
-//     model.sequelize.define('user', {
-//       firstName: {
-//         type: model.Sequelize.STRING
-//       },
-//       lastName: {
-//         type: model.Sequelize.STRING
-//       }
-//     });
-//
-//     Testing.sync()
-//     // sequelize model:create --name User --attributes first_name:string,last_name:string,bio:text
-//
-//     // for(let pet in pets){
-//     //     pets[pet].id = pets[pet].id+1;
-//     //     Pet.create(pets[pet]);
-//     // }
-//     // Pet.findAll().then(pets => {res.send(pets);});
-//
-//     res.redirect('/');
-// });
-
-
 module.exports = router;

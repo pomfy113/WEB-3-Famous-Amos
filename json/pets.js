@@ -3,7 +3,7 @@ module.exports = [
         id: 0,
         name: "Rex",
         species: "Rottweiler",
-        birthday: "20017-11-11",
+        birthday: "2017-11-11",
         favoriteFood: "Chicken",
         picUrl: "http://www.dogbreedslist.info/uploads/allimg/dog-pictures/Rottweiler-3.jpg",
         picUrlSq: "http://www.dogbreedplus.com/dog_breeds/images/cute-rottweiler-puppy.jpg",

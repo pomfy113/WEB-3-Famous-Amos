@@ -31,6 +31,7 @@
     "pug": "^2.0.0-rc.4",
     "s3-uploader": "^2.0.3",
     "sequelize": "^4.31.2",
+    "sequelize-cli": "^3.2.0",
     "serve-favicon": "~2.4.5",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4",

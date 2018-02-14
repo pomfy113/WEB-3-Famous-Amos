@@ -32,20 +32,30 @@ app.use(flash());
 
 require('dotenv').config();
 
+// Postgres - Heroku
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+client.connect();
+
 // DB set-up
 const Sequelize = require('sequelize');
 
-// const sequelize = new Sequelize(process.env.DATABASE_URL, 'fcruz', process.env.SQLPASS, {
-//     dialect: 'postgres'
-// });
-
-sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
-    protocol: 'postgres',
-    dialectOptions: {
-        ssl: true
-    }
+const sequelize = new Sequelize('famous-amos', 'fcruz', process.env.SQLPASS, {
+    dialect: 'postgres'
 });
+
+// sequelize = new Sequelize(process.env.DATABASE_URL, {
+//     dialect: 'postgres',
+//     protocol: 'postgres',
+//     dialectOptions: {
+//         ssl: true
+//     }
+// });
 
 
 

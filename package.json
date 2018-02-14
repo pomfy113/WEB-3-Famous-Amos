@@ -26,7 +26,7 @@
     "nodemailer-mailgun-transport": "^1.3.6",
     "nodemon": "^1.14.11",
     "npm": "^5.6.0",
-    "pg": "^7.4.1",
+    "pg": "7.4.1",
     "pg-hstore": "^2.3.2",
     "pug": "^2.0.0-rc.4",
     "s3-uploader": "^2.0.3",

@@ -5,9 +5,9 @@ const model = require('../db/models/');
 
 const multer  = require('multer');
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
+  // destination: function (req, file, cb) {
+  //   cb(null, 'uploads/');
+  // },
   filename: function (req, file, cb) {
       // TODO Look into edge cases
       let extArray = file.mimetype.split("/");
@@ -15,6 +15,20 @@ const storage = multer.diskStorage({
       cb(null, Date.now() + "." + ext);
   }
 });
+
+// var upload = multer({
+//   storage: multerS3({
+//     s3: s3,
+//     bucket: 'some-bucket',
+//     metadata: function (req, file, cb) {
+//       cb(null, {fieldName: file.fieldname});
+//     },
+//     key: function (req, file, cb) {
+//       cb(null, Date.now().toString())
+//     }
+//   })
+// })
+
 const upload = multer({ storage });
 const Upload = require('s3-uploader');
 
@@ -78,6 +92,7 @@ router.get('/:petId', (req, res) => {
 router.post('/', upload.single('picUrl'), (req, res) => {
     let newPet = req.body;
     let imageArray = ['picThumb', 'picUrl', 'picSquare', 'picMobile'];
+    // res.send(req.file)
 
     if (req.file) {
       client.upload(req.file.path, {}, function (err, versions, meta) {

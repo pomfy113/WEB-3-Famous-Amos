@@ -17,7 +17,7 @@ module.exports = {
             key: 'id'
         }
     });
-
+    
     // PetId: {
     //   type: Sequelize.INTEGER,
     //   onDelete: 'CASCADE',

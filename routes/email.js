@@ -1,6 +1,6 @@
 // EmailService.js
-const nodemailer = require('nodemailer')
-const mailgunTransport = require('nodemailer-mailgun-transport')
+const nodemailer = require('nodemailer');
+const mailgunTransport = require('nodemailer-mailgun-transport');
 // Configure transport options
 const mailgunOptions = {
   auth: {

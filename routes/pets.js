@@ -5,6 +5,7 @@ const model = require('../db/models/');
 
 const multer  = require('multer');
 const storage = multer.diskStorage({
+  // Removed so we don't save on server-side
   // destination: function (req, file, cb) {
   //   cb(null, 'uploads/');
   // },
@@ -16,25 +17,13 @@ const storage = multer.diskStorage({
   }
 });
 
-// var upload = multer({
-//   storage: multerS3({
-//     s3: s3,
-//     bucket: 'some-bucket',
-//     metadata: function (req, file, cb) {
-//       cb(null, {fieldName: file.fieldname});
-//     },
-//     key: function (req, file, cb) {
-//       cb(null, Date.now().toString())
-//     }
-//   })
-// })
 
 const upload = multer({ storage });
 const Upload = require('s3-uploader');
 
 let client = new Upload(process.env.S3_BUCKET, {
   aws: {
-    path: 'posts/coverImg/',
+    path: 'pets/images/',
     region: process.env.S3_REGION,
     acl: 'public-read',
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -92,29 +81,31 @@ router.get('/:petId', (req, res) => {
 router.post('/', upload.single('picUrl'), (req, res) => {
     let newPet = req.body;
     let imageArray = ['picThumb', 'picUrl', 'picSquare', 'picMobile'];
-    // res.send(req.file)
-
     if (req.file) {
-      client.upload(req.file.path, {}, function (err, versions, meta) {
-        if (err) {
-            console.log(err);
-            return res.status(400).send({ err: err });
-        }
+          client.upload(req.file.path, {}, function (err, versions, meta) {
+            if (err) {
+                return res.status(400).send({ err: err });
+            }
+            // Iterate through imageArray and add them to respective columns
+            for(let i = 0; i < imageArray.length; i++){
+                newPet[imageArray[i]] = versions[i].url;
+            }
+            
+            // TODO: originally meant to have virtual variables,
+            // Couldn't get to it
+            // newPet.picUrl = versions[1].url;
 
-        for(let i = 0; i < imageArray.length; i++){
-            newPet[imageArray[i]] = versions[i].url;
-        }
-
-        model.Pet.create(newPet).then(() => {
-            req.flash('success', 'Pet created');
-            res.redirect('/');
+            model.Pet.create(newPet).then(() => {
+                req.flash('success', 'Pet created');
+                res.redirect('/');
+            });
         });
-    });
-
     }
+    // In case there is no image or something weird happened, send this back
+    // TODO: Make it more obvious what the problem is
     else{
         model.Pet.create(newPet).then(() => {
-            req.flash('success', 'Pet created, but images cannot be uploaded');
+            req.flash('success', 'Pet created, but image cannot be uploaded');
             res.redirect('/');
         });
     }

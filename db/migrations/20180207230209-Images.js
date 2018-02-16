@@ -12,16 +12,25 @@ module.exports = {
     return Promise.all([
         queryInterface.addColumn('Pets', 'picThumb',
         {
-            type: Sequelize.STRING,
-            validate: { isUrl: true }
+            type: Sequelize.VIRTUAL,
+            validate: { isUrl: true },
+            get: function() {
+                return (this.get('picUrl') + "thumb");
+            }
         }),
         queryInterface.addColumn('Pets', 'picSquare', {
-            type: Sequelize.STRING,
-            validate: { isUrl: true }
+            type: Sequelize.VIRTUAL,
+            validate: { isUrl: true },
+            get: function() {
+                return (this.get('picUrl') + "thumb");
+            }
         }),
         queryInterface.addColumn('Pets', 'picMobile', {
-            type: Sequelize.STRING,
-            validate: { isUrl: true }
+            type: Sequelize.VIRTUAL,
+            validate: { isUrl: true },
+            get: function() {
+                return (this.get('picUrl') + "thumb");
+            }
         })
     ]);
 
@@ -38,9 +47,9 @@ module.exports = {
     */
 
     return Promise.all([
-        queryInterface.removeColumn('Pets', 'PicThumb'),
-        queryInterface.removeColumn('Pets', 'PicSquare'),
-        queryInterface.removeColumn('Pets', 'PicMobile')
+        queryInterface.removeColumn('Pets', 'picThumb'),
+        queryInterface.removeColumn('Pets', 'picSquare'),
+        queryInterface.removeColumn('Pets', 'picMobile')
     ]);
   }
 };
